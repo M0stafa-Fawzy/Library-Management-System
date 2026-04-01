@@ -1,7 +1,6 @@
 import { Exclude } from "class-transformer"
 import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import * as bcrypt from 'bcrypt'
-import { Role } from "src/common/enums/role.enum"
 
 @Entity()
 export class User {
@@ -17,9 +16,6 @@ export class User {
     @Column({ select: false })
     @Exclude()
     password: string
-
-    @Column({ type: 'enum', enum: Role, default: Role.USER })
-    role: string
 
     @CreateDateColumn()
     createdAt: Date

@@ -16,9 +16,9 @@ export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
     @Post("/signup")
-    @ApiOperation({ summary: 'Register a new user or provider' })
+    @ApiOperation({ summary: 'Register a new borrower' })
     @ApiBody({ type: SignUpDto })
-    @ApiResponse({ status: 201, description: 'User registered successfully', type: UserDto })
+    @ApiResponse({ status: 201, description: 'Borrower registered successfully', type: UserDto })
     @ApiResponse({ status: 409, description: 'Email already exists' })
     @Serialize(UserDto)
     @HttpCode(201)

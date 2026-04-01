@@ -13,7 +13,6 @@ export class AuthMiddleware implements NestMiddleware {
         try {
             const decoded = this.jwtService.verify(token);
             req["id"] = decoded.id
-            req["role"] = decoded.role
             next();
         } catch (err) {
             console.error('Invalid token', err.message);

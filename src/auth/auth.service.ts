@@ -1,4 +1,4 @@
-import { UserService } from './../user/user.service';
+import { UserService } from '../user/user.service';
 import { BadRequestException, Injectable } from "@nestjs/common";
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from 'src/auth/dtos/login.dto';
@@ -14,14 +14,14 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) { }
 
-    private generateToken(payload: { id: number; role: string }): string {
+    private generateToken(payload: { id: number }): string {
         return this.jwtService.sign(payload);
     }
 
     async signUp(data: SignUpDto) {
         const user = await this.userService.create(data)
         return {
-            user, token: this.generateToken({ id: user.id, role: user.role })
+            user, token: this.generateToken({ id: user.id })
         }
     }
 
@@ -33,7 +33,7 @@ export class AuthService {
         if (!isPasswordMatch) throw new BadRequestException('Invalid email or password')
 
         return {
-            user, token: this.generateToken({ id: user.id, role: user.role })
+            user, token: this.generateToken({ id: user.id })
         }
     }
 

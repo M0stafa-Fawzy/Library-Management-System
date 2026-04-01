@@ -10,9 +10,6 @@ export class UserProfileResponse {
 
     @ApiProperty({ example: 'mostafafawzzy471@gmail.com' })
     email: string
-
-    @ApiProperty({ example: 'user', enum: ['admin', 'user'] })
-    role: string
 }
 
 export class UserDto {
@@ -21,8 +18,7 @@ export class UserDto {
         return {
             id: obj.user.id,
             name: obj.user.name,
-            email: obj.user.email,
-            role: obj.user.role
+            email: obj.user.email
         }
     })
     @Expose()

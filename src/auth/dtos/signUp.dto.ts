@@ -1,5 +1,4 @@
-import { IsEmail, IsIn, IsNotEmpty, IsString, MinLength } from 'class-validator'
-import { Role } from 'src/common/enums/role.enum'
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger'
 
 export class SignUpDto {
@@ -16,10 +15,4 @@ export class SignUpDto {
     @IsString()
     @IsNotEmpty({ message: 'Name is required' })
     name: string
-
-    @ApiProperty({ example: 'user', enum: Role })
-    @IsIn(Object.values(Role), {
-        message: 'Role must be either "admin" or "user"'
-    })
-    role: string
 }
