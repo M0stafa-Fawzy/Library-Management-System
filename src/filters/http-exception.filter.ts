@@ -9,7 +9,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
         const isHttpException = exception instanceof HttpException;
         const status = isHttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR
-        const message = isHttpException ? exception.getResponse() : {
+
+        const message = status === 429 ? {
+            statusCode: 429,
+            message: 'Too Many Requests, Try again after a while',
+            error: 'Too Many Requests',
+        } : isHttpException ? exception.getResponse() : {
             statusCode: status,
             message: 'Internal server error',
             error: 'Internal Server Error',
