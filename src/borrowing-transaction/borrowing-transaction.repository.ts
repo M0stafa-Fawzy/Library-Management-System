@@ -4,7 +4,6 @@ import { LessThan, Repository } from "typeorm";
 import { BorrowingTransaction } from "./borrowing-transaction.entity";
 import { BorrowingStatus } from "../common/enums/borrowing-transaction-status.enum";
 import { PaginationDto } from "../common/dtos/pagination.dto";
-import { CheckoutDto } from "./dtos/checkout.dto";
 
 @Injectable()
 export class BorrowingTransactionRepository {
@@ -13,27 +12,10 @@ export class BorrowingTransactionRepository {
         private readonly repo: Repository<BorrowingTransaction>
     ) { }
 
-    create(borrowerId: number, data: CheckoutDto) {
-        const transaction = this.repo.create({ borrowerId, ...data });
-        return this.repo.save(transaction);
-    }
-
-    findById(id: number) {
-        return this.repo.findOne({ where: { id }, relations: ['book', 'borrower'] });
-    }
-
     findByIdAndBookId(borrowerId: number, bookId: number) {
         return this.repo.findOne({
             where: { borrowerId, bookId },
             relations: ['book'],
-            order: { borrowDate: 'DESC' }
-        });
-    }
-
-    findByIdAndBorrowerId(id: number, borrowerId: number) {
-        return this.repo.findOne({
-            where: { id, borrowerId },
-            relations: ['book', 'borrower'],
             order: { borrowDate: 'DESC' }
         });
     }
@@ -70,12 +52,5 @@ export class BorrowingTransactionRepository {
             order: { dueDate: 'ASC' }
         });
         return { data, total };
-    }
-
-    async markReturned(id: number) {
-        return this.repo.update(id, {
-            status: BorrowingStatus.RETURNED,
-            returnDate: new Date()
-        });
     }
 }

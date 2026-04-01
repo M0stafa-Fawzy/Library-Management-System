@@ -87,8 +87,7 @@ npm run test
 Interactive Swagger UI is available at `/api-docs` when the server is running.
 
 ## Database Schema
-
-See `docs/schema.md` for the full database schema diagram.
+![Database Schema](docs/db-schema.png)
 
 ## Project Structure
 
