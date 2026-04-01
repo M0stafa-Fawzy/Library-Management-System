@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { BookModule } from './book/book.module';
+import { BorrowingTransactionModule } from './borrowing-transaction/borrowing-transaction.module';
 import { ProfileInterceptor } from './interceptors/profile.interceptor';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 
@@ -17,6 +18,7 @@ import { ResponseInterceptor } from './interceptors/response.interceptor';
         UserModule,
         AuthModule,
         BookModule,
+        BorrowingTransactionModule,
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],

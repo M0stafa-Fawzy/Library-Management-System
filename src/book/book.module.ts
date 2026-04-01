@@ -14,7 +14,7 @@ import { AuthMiddleware } from "src/middlewares/auth.middleware";
     ],
     controllers: [BookController],
     providers: [BookRepository, BookService],
-    exports: [BookService]
+    exports: [BookService, BookRepository]
 })
 export class BookModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
