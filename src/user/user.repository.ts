@@ -21,9 +21,11 @@ export class UserRepository {
         return this.repo.findOne({ where: { id } });
     }
 
-    create(data: SignUpDto) {
+    async create(data: SignUpDto) {
         const user = this.repo.create(data);
-        return this.repo.save(user);
+        const saved = await this.repo.save(user);
+        const { password, ...result } = saved;
+        return result;
     }
 
     findAll(pagination: PaginationDto) {
