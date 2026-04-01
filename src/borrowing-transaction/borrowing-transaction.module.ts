@@ -1,5 +1,6 @@
 import { Module, NestModule, MiddlewareConsumer, forwardRef } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { ThrottlerModule } from "@nestjs/throttler";
 import { BorrowingTransaction } from "./borrowing-transaction.entity";
 import { BorrowingTransactionRepository } from "./borrowing-transaction.repository";
 import { BorrowingTransactionService } from "./borrowing-transaction.service";
@@ -12,7 +13,8 @@ import { AuthMiddleware } from "../middlewares/auth.middleware";
     imports: [
         TypeOrmModule.forFeature([BorrowingTransaction]),
         forwardRef(() => AuthModule),
-        BookModule
+        BookModule,
+        ThrottlerModule.forRoot([{ ttl: 60000, limit: 5 }]) // 5 requests per min for the 2 APIs.
     ],
     controllers: [BorrowingTransactionController],
     providers: [BorrowingTransactionRepository, BorrowingTransactionService]
