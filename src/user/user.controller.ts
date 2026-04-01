@@ -1,10 +1,9 @@
-import { Controller, Get, Put, Delete, Query, Body, Param, UseGuards, HttpCode, ParseIntPipe, UseInterceptors } from "@nestjs/common";
+import { Controller, Get, Put, Delete, Query, Body, Param, UseGuards, HttpCode, ParseIntPipe } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { PaginationDto } from "../common/dtos/pagination.dto";
 import { UpdateProfileDto } from "src/auth/dtos/update-profile.dto";
 import { AuthGuard } from "src/guards/auth.guard";
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiBody } from "@nestjs/swagger";
-import { ProfileInterceptor } from "src/interceptors/profile.interceptor";
 import { ProfileDecorator } from "src/decorators/profile.decorator";
 import { User } from "./user.entity";
 
@@ -41,7 +40,6 @@ export class UserController {
     @ApiResponse({ status: 401, description: 'Unauthorized' })
     @ApiResponse({ status: 409, description: 'Email already exists' })
     @HttpCode(200)
-    @UseInterceptors(ProfileInterceptor)
     update(@ProfileDecorator() user: User, @Body() data: UpdateProfileDto) {
         return this.userService.update(user.id, data);
     }

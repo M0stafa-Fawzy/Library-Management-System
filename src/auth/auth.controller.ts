@@ -1,11 +1,10 @@
-import { Body, Controller, Get, HttpCode, Post, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, Post, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { SignUpDto } from "src/auth/dtos/signUp.dto";
 import { LoginDto } from "src/auth/dtos/login.dto"
 import { Serialize } from "src/interceptors/serialize.interceptor";
 import { UserDto } from "src/auth/dtos/user.dto";
 import { ProfileDecorator } from "src/decorators/profile.decorator";
-import { ProfileInterceptor } from "src/interceptors/profile.interceptor";
 import { User } from "src/user/user.entity";
 import { AuthGuard } from "src/guards/auth.guard";
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiBody } from "@nestjs/swagger";
@@ -44,7 +43,6 @@ export class AuthController {
     @ApiResponse({ status: 401, description: 'Unauthorized' })
     @UseGuards(AuthGuard)
     @HttpCode(200)
-    @UseInterceptors(ProfileInterceptor)
     getProfile(@ProfileDecorator() user: User) {
         return user
     }
