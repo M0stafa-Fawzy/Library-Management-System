@@ -1,17 +1,19 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Book {
     @PrimaryGeneratedColumn()
     id: number
 
+    @Index()
     @Column({ type: 'varchar', length: 255 })
     title: string
 
+    @Index()
     @Column({ type: 'varchar', length: 255 })
     author: string
 
-    @Column({ type: 'varchar', length: 13, unique: true })
+    @Column({ type: 'varchar', length: 20, unique: true })
     isbn: string
 
     @Column({ type: 'int', default: 0 })
