@@ -29,7 +29,6 @@ export class UserService {
 
     async update(id: number, data: UpdateProfileDto) {
         const borrower = await this.findById(id);
-        if (!borrower) throw new NotFoundException('Borrower not found');
 
         if (data.email && data.email !== borrower.email) {
             const existing = await this.userRepository.findByEmail(data.email);
@@ -41,9 +40,6 @@ export class UserService {
     }
 
     async delete(id: number) {
-        const borrower = await this.findById(id);
-        if (!borrower) throw new NotFoundException('Borrower not found');
-
         await this.userRepository.delete(id);
         return { message: 'Borrower deleted successfully' };
     }

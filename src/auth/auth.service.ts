@@ -37,7 +37,4 @@ export class AuthService {
         }
     }
 
-    getProfile(id: number) {
-        return this.userRepository.findById(id)
-    }
 }

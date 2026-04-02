@@ -76,6 +76,13 @@ npm run start:dev
 | GET | `/borrowings/my/current` | List currently checked-out books |
 | GET | `/borrowings/overdue` | List all overdue transactions |
 
+### Reports
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/reports/summary` | Download borrowing summary as CSV |
+| GET | `/reports/overdue-last-month` | Download overdue borrows from last month as CSV |
+| GET | `/reports/borrowings-last-month` | Download all borrowings from last month as CSV |
+
 ## Running Tests
 
 ```bash
@@ -100,6 +107,7 @@ src/
   common/         # Shared DTOs, enums, utilities
   guards/         # Auth guard
   middlewares/     # JWT middleware
-  interceptors/   # Response & profile interceptors
+  interceptors/   # Response & serialize interceptors
   filters/        # Global exception filter
+  report/         # Analytical reports & CSV export
 ```

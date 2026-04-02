@@ -28,21 +28,15 @@ export class BookService {
     }
 
     async update(id: number, data: UpdateBookDto) {
-        const book = await this.findById(id);
-        if (!book) throw new NotFoundException('Book not found');
-
         if (data.isbn) {
             const existing = await this.bookRepository.findByQuery({ isbn: data.isbn, id: Not(id) });
             if (existing) throw new ConflictException('There is already a book with this ISBN');
         }
         await this.bookRepository.update(id, data);
-        return book
+        return { message: 'Book updated successfully' };
     }
 
     async delete(id: number) {
-        const book = await this.findById(id);
-        if (!book) throw new NotFoundException('Book not found');
-
         await this.bookRepository.delete(id);
         return { message: 'Book deleted successfully' };
     }
