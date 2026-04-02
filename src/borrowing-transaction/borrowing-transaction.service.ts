@@ -30,6 +30,10 @@ export class BorrowingTransactionService {
             throw new BadRequestException('You already have this book checked out');
         }
 
+        if (data.dueDate < new Date()) {
+            throw new BadRequestException('Due date cannot be in the past');
+        }
+
         const queryRunner = this.dataSource.createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
