@@ -32,7 +32,7 @@ export class ReportService {
 
     async getOverdueLastMonth() {
         const records = await this.borrowingRepo.find({
-            where: { status: BorrowingStatus.CHECKED_OUT, dueDate: Between(new Date(), new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)) },
+            where: { status: BorrowingStatus.CHECKED_OUT, dueDate: Between(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), new Date()) },
             relations: ['book', 'borrower'],
             order: { dueDate: 'ASC' }
         });
@@ -41,7 +41,7 @@ export class ReportService {
 
     async getBorrowingsLastMonth() {
         const records = await this.borrowingRepo.find({
-            where: { borrowDate: Between(new Date(), new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)) },
+            where: { borrowDate: Between(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), new Date()) },
             relations: ['book', 'borrower'],
             order: { borrowDate: 'DESC' }
         });
