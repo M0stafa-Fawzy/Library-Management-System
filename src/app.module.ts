@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { BookModule } from './book/book.module';
 import { BorrowingTransactionModule } from './borrowing-transaction/borrowing-transaction.module';
+import { ReportModule } from './report/report.module';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 @Module({
@@ -18,6 +19,7 @@ import { ResponseInterceptor } from './interceptors/response.interceptor';
         AuthModule,
         BookModule,
         BorrowingTransactionModule,
+        ReportModule,
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
